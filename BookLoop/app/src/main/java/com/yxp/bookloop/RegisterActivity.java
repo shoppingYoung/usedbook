@@ -27,9 +27,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
     private Button registerComplete;
     private Button back_button;
     private static final String GET_VERIFY_CODE = "http://182.254.136.170/usedbook/sendmessage.php";
-//    private static final String GET_VERIFY_CODE = "http://192.168.1.104/usedbook/sendmessage.php";
     private static final String REG_URL = "http://182.254.136.170/usedbook/register.php";
-//    private static final String REG_URL = "http://192.168.1.104/usedbook/register.php";
     public static String userId = "";
 
     @Override
@@ -170,7 +168,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
     }
 
     //判断用户是否注册成功
-    public void HandleMsgForReg(String user, String s) {
+    public void HandleMsgForReg(String userName, String s) {
         try {
             JSONObject jsonObject = new JSONObject(s);
             int code = jsonObject.getInt("code");
@@ -178,7 +176,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
             if (code == 200) {
 
                 //用户唯一识别码
-                userId = user;
+                userId = userName;
                 Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();

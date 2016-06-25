@@ -20,12 +20,12 @@ public class AddMessageActivity extends Activity implements View.OnClickListener
     private Button btn_submit;
     private EditText content;
     private static String ADD_URL = "http://182.254.136.170/usedbook/addmessage.php";
+    private static final String USER = LoginActivity.userId.equals("") ? RegisterActivity.userId : LoginActivity.userId ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addmessage);
-        final String user = LoginActivity.userId.equals("") ? RegisterActivity.userId : LoginActivity.userId ;
 
         btn_back = (Button) findViewById(R.id.btn_back);
         content = (EditText) findViewById(R.id.et_content);
@@ -33,6 +33,24 @@ public class AddMessageActivity extends Activity implements View.OnClickListener
 
         btn_back.setOnClickListener(this);
         btn_submit.setOnClickListener(this);
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+
+            //点击“返回”
+            case R.id.btn_back:
+                onBackPressed();
+                break;
+
+            //点击“留言”
+            case R.id.btn_submit:
+                checkContent(content,USER);
+
+                break;
+        }
 
     }
 
@@ -44,24 +62,6 @@ public class AddMessageActivity extends Activity implements View.OnClickListener
         } else {
             new AddMessageAsyncTask().execute(ADD_URL, user, msgContent);
         }
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-
-            //点击“返回”
-            case R.id.btn_back:
-//                Intent intent = new Intent(getApplicationContext(), ShowMessageActivity.class);
-//                startActivity(intent);
-                break;
-
-            case R.id.btn_submit:
-//                checkContent(content, user);
-
-                break;
-        }
-
     }
 
     // 异步添加留言
@@ -87,7 +87,7 @@ public class AddMessageActivity extends Activity implements View.OnClickListener
                 int code = jsonObject.getInt("code");
                 String msg = jsonObject.getString("msg");
                 if (code == 200) {
-                    Intent intent = new Intent(AddMessageActivity.this, ShowMessageFragment.class);
+                    Intent intent = new Intent(AddMessageActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
                 } else {
