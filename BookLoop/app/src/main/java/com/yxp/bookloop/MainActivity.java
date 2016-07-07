@@ -17,12 +17,10 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
     private RadioButton button_onSale, button_pub, button_message, button_my;
     Drawable unpress = null;
     Drawable press = null;
-//    public static boolean IS_LOGIN = (LoginActivity.userId.equals("") && RegisterActivity.userId.equals("")) ? false : true;
-    public static String USER = LoginActivity.userId.equals("") ?RegisterActivity.userId:LoginActivity.userId;
+    public static String USER = LoginActivity.userId.equals("") ? RegisterActivity.userId : LoginActivity.userId;
 
     public static boolean isLogin() {
-        if (LoginActivity.userId.equals("") && RegisterActivity.userId.equals(""))
-        {
+        if (LoginActivity.userId.equals("") && RegisterActivity.userId.equals("")) {
             return false;
         } else {
             return true;
@@ -35,7 +33,6 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
         setContentView(R.layout.activity_main);
         isLogin();
 
-//        boolean a = IS_LOGIN;
         //设置按钮按下去之后和之前的背景
         press = ContextCompat.getDrawable(this, R.drawable.img_press);
         press.setBounds(0, 0, 100, 100);

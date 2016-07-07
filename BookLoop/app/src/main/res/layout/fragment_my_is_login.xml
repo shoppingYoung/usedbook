@@ -13,38 +13,70 @@
         android:gravity="center"
         android:text="头像"
         android:textSize="18sp"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#b5e4b9"
+        android:layout_below="@id/tv_user"/>
 
     <ImageView
+        android:id="@+id/iv_userFace"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_alignParentRight="true"
-        android:src="@drawable/pic"
-        android:paddingRight="20dp"/>
+        android:paddingRight="20dp"
+        android:src="@drawable/pic"/>
+
     <TextView
         android:id="@+id/tv_nickname"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
+        android:layout_below="@id/tv_user"
+        android:gravity="center_vertical"
         android:text="昵称"
-        android:textSize="18sp"
-        android:layout_below="@id/tv_user"/>
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:text="十二瓦台灯"
-        android:layout_alignTop="@id/tv_nickname"
-        android:layout_alignParentRight="true"/>
-    <TextView
-        android:id="@+id/tv_changPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:text="修改密码"
-        android:textSize="18sp"
+        android:textSize="18sp"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#b5e4b9"
         android:layout_below="@id/tv_nickname"/>
+
     <TextView
+        android:id="@+id/tv_get_nickname"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/tv_nickname"
+        android:gravity="center_vertical"
+        android:text="十二瓦台灯"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/tv_chang_password"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/tv_nickname"
+        android:gravity="center_vertical"
+        android:text="修改密码"
+        android:textSize="18sp"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#b5e4b9"
+        android:layout_below="@id/tv_chang_password"/>
+
+    <TextView
+        android:id="@+id/tv_about"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_below="@id/tv_chang_password"
+        android:gravity="center_vertical"
         android:text="关于书环"
-        android:textSize="18sp"
-        android:layout_below="@id/tv_changPassword"/>
+        android:textSize="18sp"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#b5e4b9"
+        android:layout_below="@id/tv_about"/>
 
 </RelativeLayout>

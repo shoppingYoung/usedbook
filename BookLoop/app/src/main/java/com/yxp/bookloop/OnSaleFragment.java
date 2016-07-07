@@ -1,12 +1,16 @@
 package com.yxp.bookloop;
 
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -22,17 +26,18 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OnSaleFragment extends Fragment {
+public class OnSaleFragment extends Fragment  implements AdapterView.OnItemClickListener {
     private ListView mListView;
     private static final String ON_SALE_URL = "http://182.254.136.170/usedbook/booklist.php";
-
+    private String[] option = {"打电话","发短信"};
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View vie = inflater.inflate(R.layout.fragment_on_sale, container, false);
-        mListView = (ListView) vie.findViewById(R.id.lv_book);
+        View view = inflater.inflate(R.layout.fragment_on_sale, container, false);
+        mListView = (ListView) view.findViewById(R.id.lv_book);
+        mListView.setOnItemClickListener(this);
         getJSONByVolley(ON_SALE_URL);
-        return vie;
+        return view;
     }
 
     private void display(List<Book> bookList) {
@@ -81,5 +86,18 @@ public class OnSaleFragment extends Fragment {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("请选择联系方式");
+        builder.setItems(option, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getActivity(), ""+option[which], Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.show();
     }
 }

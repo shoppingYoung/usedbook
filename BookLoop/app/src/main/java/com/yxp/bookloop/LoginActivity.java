@@ -33,7 +33,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        init();
+    }
 
+    private void init() {
         huang = (TextView) findViewById(R.id.tv_huang);
         userName = (EditText) findViewById(R.id.userName);
         password = (EditText) findViewById(R.id.password);
@@ -76,7 +79,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         //得到用户名和密码
         final String getUserName = userName.getText().toString();
         String getPassword = password.getText().toString();
-        //判断用户输入的用户名是否合法
+        //判断用户输入的内容是否是电话号码
         Pattern p = Pattern.compile("^((13[0-9])|(15[^4,\\D])|(18[0-9]))\\d{8}$");
         Matcher m = p.matcher(getUserName);
         if (!m.matches()) {
@@ -99,13 +102,11 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 @Override
                 protected void onPostExecute(String s) {
                     super.onPostExecute(s);
-                    HandleMsgForLog(getUserName, progressDialog,s);
-
+                    HandleMsgForLogin(getUserName, progressDialog, s);
                 }
             }.execute(LOGIN_URL, getUserName, getPassword);
         }
     }
-
 
     private String getDataFromWeb(String url, String mUserName, String mPassword) {
         String userName = "userName";
@@ -115,7 +116,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         return result;
     }
 
-    private void HandleMsgForLog(String userName, ProgressDialog progressDialog, String s) {
+    private void HandleMsgForLogin(String userName, ProgressDialog progressDialog, String s) {
         try {
             JSONObject jsonObject = new JSONObject(s);
             int code = jsonObject.getInt("code");

@@ -27,7 +27,7 @@ import java.util.List;
 public class ShowMessageFragment extends Fragment {
     private TextView tv_say;
     private ListView mListView;
-    private static final String SHOW_URL = "http://182.254.136.170/usedbook/showmessage.php";
+    private static final String SHOW_MESSAGE_URL = "http://182.254.136.170/usedbook/showmessage.php";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,7 +39,7 @@ public class ShowMessageFragment extends Fragment {
         loadMessage();
 
         mListView = (ListView) view.findViewById(R.id.lv_message);
-        new ShowMessageAsyncTask().execute(SHOW_URL);
+        new ShowMessageAsyncTask().execute(SHOW_MESSAGE_URL);
         return view;
     }
 
@@ -50,7 +50,6 @@ public class ShowMessageFragment extends Fragment {
             public void onClick(View v) {
                 //判断用户是否登录
                 if (MainActivity.isLogin()) {
-
                     Intent intent = new Intent(getActivity(), AddMessageActivity.class);
                     intent.putExtra("user", MainActivity.USER);
                     startActivity(intent);

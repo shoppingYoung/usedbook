@@ -19,7 +19,7 @@ public class AddMessageActivity extends Activity implements View.OnClickListener
     private Button btn_back;
     private Button btn_submit;
     private EditText content;
-    private static String ADD_URL = "http://182.254.136.170/usedbook/addmessage.php";
+    private static final String ADD_MESSAGE_URL = "http://182.254.136.170/usedbook/addmessage.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class AddMessageActivity extends Activity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
 
             //点击“返回”
             case R.id.btn_back:
@@ -46,11 +46,9 @@ public class AddMessageActivity extends Activity implements View.OnClickListener
 
             //点击“留言”
             case R.id.btn_submit:
-                checkContent(content,MainActivity.USER);
-
+                checkContent(content, MainActivity.USER);
                 break;
         }
-
     }
 
     //留言
@@ -59,12 +57,12 @@ public class AddMessageActivity extends Activity implements View.OnClickListener
         if (msgContent.equals("")) {
             Toast.makeText(AddMessageActivity.this, "请输入留言内容！", Toast.LENGTH_SHORT).show();
         } else {
-            new AddMessageAsyncTask().execute(ADD_URL, user, msgContent);
+            new AddMessageAsyncTask().execute(ADD_MESSAGE_URL, user, msgContent);
         }
     }
 
     // 异步添加留言
-    class AddMessageAsyncTask extends AsyncTask< String, Void, String > {
+    class AddMessageAsyncTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
             String url = params[0];
@@ -74,7 +72,7 @@ public class AddMessageActivity extends Activity implements View.OnClickListener
             String mContent = params[2];
             String a = "";
 
-            String result = YxpUtils.sendDataByPost(url, user, mUer,content, mContent,a,a);
+            String result = YxpUtils.sendDataByPost(url, user, mUer, content, mContent, a, a);
             return result;
         }
 
