@@ -4,13 +4,14 @@ package com.yxp.bookloop;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -26,10 +27,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OnSaleFragment extends Fragment  implements AdapterView.OnItemClickListener {
+public class OnSaleFragment extends Fragment implements AdapterView.OnItemClickListener {
     private ListView mListView;
     private static final String ON_SALE_URL = "http://182.254.136.170/usedbook/booklist.php";
-    private String[] option = {"打电话","发短信"};
+    private String[] option = {"打电话", "发短信"};
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -41,7 +43,7 @@ public class OnSaleFragment extends Fragment  implements AdapterView.OnItemClick
     }
 
     private void display(List<Book> bookList) {
-        BookAdapter bookAdapter = new BookAdapter(getActivity(),bookList);
+        BookAdapter bookAdapter = new BookAdapter(getActivity(), bookList);
         mListView.setAdapter(bookAdapter);
     }
 
@@ -95,7 +97,15 @@ public class OnSaleFragment extends Fragment  implements AdapterView.OnItemClick
         builder.setItems(option, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getActivity(), ""+option[which], Toast.LENGTH_SHORT).show();
+                Intent intent;
+                if (which == 0) {
+                    intent = new Intent(Intent.ACTION_CALL);
+                    intent.setData(Uri.parse("tel:13006336086"));
+                } else {
+                    intent = new Intent(Intent.ACTION_SENDTO);
+                    intent.setData(Uri.parse("smsto:13006336086"));
+                }
+                startActivity(intent);
             }
         });
         builder.show();
