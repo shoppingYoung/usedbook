@@ -16,14 +16,12 @@ public class MessageAdapter extends BaseAdapter {
 
     private List<MessageBoard> mList;
     private LayoutInflater mInflater;
-    private ImageLoad mImageLoad;
     private Context mContext;
 
     public MessageAdapter(Context context, List<MessageBoard> data) {
         mList = data;
         mInflater = LayoutInflater.from(context);
         mContext = context;
-//        mImageLoad = new ImageLoad();
     }
 
     public Context getContext() {
@@ -62,8 +60,6 @@ public class MessageAdapter extends BaseAdapter {
 
         String url = mList.get(position).userFace;
         Glide.with(getContext()).load(url).into(viewHolder.im_userFace);
-//        viewHolder.im_userFace.setTag(url);
-//        mImageLoad.showImageByAsyncTask(viewHolder.im_userFace, url);
         viewHolder.tv_user.setText(mList.get(position).user);
         viewHolder.tv_time.setText(mList.get(position).msgTime);
         viewHolder.tv_content.setText(mList.get(position).content);

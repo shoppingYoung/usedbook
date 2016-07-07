@@ -20,7 +20,6 @@ public class AddMessageActivity extends Activity implements View.OnClickListener
     private Button btn_submit;
     private EditText content;
     private static String ADD_URL = "http://182.254.136.170/usedbook/addmessage.php";
-    private static final String USER = LoginActivity.userId.equals("") ? RegisterActivity.userId : LoginActivity.userId ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +46,7 @@ public class AddMessageActivity extends Activity implements View.OnClickListener
 
             //点击“留言”
             case R.id.btn_submit:
-                checkContent(content,USER);
+                checkContent(content,MainActivity.USER);
 
                 break;
         }

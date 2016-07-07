@@ -24,10 +24,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.yxp.bookloop.R.id.user;
-
 public class ShowMessageFragment extends Fragment {
-    private TextView say;
+    private TextView tv_say;
     private ListView mListView;
     private static final String SHOW_URL = "http://182.254.136.170/usedbook/showmessage.php";
 
@@ -35,29 +33,29 @@ public class ShowMessageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_showmessage, container, false);
-        say = (TextView) view.findViewById(R.id.tv_say);
+        tv_say = (TextView) view.findViewById(R.id.tv_say);
 
         //点击“我要留言"
-        laddMessage();
+        loadMessage();
 
         mListView = (ListView) view.findViewById(R.id.lv_message);
         new ShowMessageAsyncTask().execute(SHOW_URL);
         return view;
     }
 
-    private void laddMessage() {
-        say.setOnClickListener(new View.OnClickListener() {
+    private void loadMessage() {
+        tv_say.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 //判断用户是否登录
-                if(LoginActivity.userId.equals("") &&
-                        RegisterActivity.userId.equals("")){
-                    Toast.makeText(getActivity(),"游客不能留言！",Toast.LENGTH_SHORT).show();
-                }else {
+                if (MainActivity.isLogin()) {
+
                     Intent intent = new Intent(getActivity(), AddMessageActivity.class);
-                    intent.putExtra("user", user);
+                    intent.putExtra("user", MainActivity.USER);
                     startActivity(intent);
+                } else {
+                    Toast.makeText(getActivity(), "游客不能留言！", Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -1,0 +1,50 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="8dp"
+                tools:context="com.yxp.bookloop.MyFragment">
+
+    <TextView
+        android:id="@+id/tv_user"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:gravity="center"
+        android:text="头像"
+        android:textSize="18sp"/>
+
+    <ImageView
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/pic"
+        android:paddingRight="20dp"/>
+    <TextView
+        android:id="@+id/tv_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:text="昵称"
+        android:textSize="18sp"
+        android:layout_below="@id/tv_user"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:text="十二瓦台灯"
+        android:layout_alignTop="@id/tv_nickname"
+        android:layout_alignParentRight="true"/>
+    <TextView
+        android:id="@+id/tv_changPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:text="修改密码"
+        android:textSize="18sp"
+        android:layout_below="@id/tv_nickname"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:text="关于书环"
+        android:textSize="18sp"
+        android:layout_below="@id/tv_changPassword"/>
+
+</RelativeLayout>
