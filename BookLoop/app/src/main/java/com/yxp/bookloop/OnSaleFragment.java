@@ -91,7 +91,7 @@ public class OnSaleFragment extends Fragment implements AdapterView.OnItemClickL
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("请选择联系方式");
         builder.setItems(option, new DialogInterface.OnClickListener() {
@@ -102,8 +102,11 @@ public class OnSaleFragment extends Fragment implements AdapterView.OnItemClickL
                     intent = new Intent(Intent.ACTION_CALL);
                     intent.setData(Uri.parse("tel:13006336086"));
                 } else {
+                    String bookName = "线性代数";
+                    String body = "童鞋你好，我在“书环”这款APP上面看到你出售《" + bookName + "》，请问这本书还有吗？";
                     intent = new Intent(Intent.ACTION_SENDTO);
                     intent.setData(Uri.parse("smsto:13006336086"));
+                    intent.putExtra("sms_body", body);
                 }
                 startActivity(intent);
             }
