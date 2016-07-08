@@ -15,6 +15,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private ImageView iv_userFace;
     private TextView tv_get_nickname;
     private TextView tv_chang_password;
+    private Button logout;
     private Button btn_login;
     private Button btn_register;
 
@@ -36,9 +37,11 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         iv_userFace = (ImageView) view.findViewById(R.id.iv_userFace);
         tv_get_nickname = (TextView) view.findViewById(R.id.tv_get_nickname);
         tv_chang_password = (TextView) view.findViewById(R.id.tv_chang_password);
+        logout = (Button) view.findViewById(R.id.btn_logout);
         iv_userFace.setOnClickListener(this);
         tv_get_nickname.setOnClickListener(this);
         tv_chang_password.setOnClickListener(this);
+        logout.setOnClickListener(this);
     }
 
     private void notLoginInit(View view) {
@@ -78,6 +81,10 @@ public class MyFragment extends Fragment implements View.OnClickListener {
             //点击“修改密码”
             case R.id.tv_chang_password:
                 Toast.makeText(getActivity(), "你点击了“修改密码”", Toast.LENGTH_SHORT).show();
+                break;
+            
+            case R.id.btn_logout:
+                Toast.makeText(getActivity(), "你点击了“退出当前账号”", Toast.LENGTH_SHORT).show();
                 break;
         }
     }

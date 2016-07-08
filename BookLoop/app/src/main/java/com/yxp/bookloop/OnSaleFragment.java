@@ -95,29 +95,33 @@ public class OnSaleFragment extends Fragment implements AdapterView.OnItemClickL
     //设置点击事件
     @Override
     public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("请选择联系方式");
-        builder.setItems(option, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent intent;
-                if (which == 0) {
-                    intent = new Intent(Intent.ACTION_CALL);
-                    intent.setData(Uri.parse("tel:13006336086"));
-                } else {
-                    int first = mListView.getFirstVisiblePosition();
-                    RelativeLayout layout = (RelativeLayout) mListView.getChildAt(position-first);
-                    TextView tv = (TextView) layout.findViewById(R.id.tv_bookName);
-                    String bookName = tv.getText().toString();
-                    String body = "童鞋你好，我在“书环”这款APP上面看到你出售《" + bookName + "》，请问这本书还有吗？";
-                    intent = new Intent(Intent.ACTION_SENDTO);
-                    intent.setData(Uri.parse("smsto:13006336086"));
-                    intent.putExtra("sms_body", body);
+        if (!MainActivity.isLogin()) {
+            Toast.makeText(getActivity(), "你需要登录才能进行此操作！", Toast.LENGTH_SHORT).show();
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle("请选择联系方式");
+            builder.setItems(option, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent;
+                    if (which == 0) {
+                        intent = new Intent(Intent.ACTION_CALL);
+                        intent.setData(Uri.parse("tel:13006336086"));
+                    } else {
+                        int first = mListView.getFirstVisiblePosition();
+                        RelativeLayout layout = (RelativeLayout) mListView.getChildAt(position - first);
+                        TextView tv = (TextView) layout.findViewById(R.id.tv_bookName);
+                        String bookName = tv.getText().toString();
+                        String body = "童鞋你好，我在“书环”这款APP上面看到你出售《" + bookName + "》，请问这本书还有吗？";
+                        intent = new Intent(Intent.ACTION_SENDTO);
+                        intent.setData(Uri.parse("smsto:13006336086"));
+                        intent.putExtra("sms_body", body);
+                    }
+                    startActivity(intent);
                 }
-                startActivity(intent);
-            }
-        });
-        builder.show();
+            });
+            builder.show();
+        }
     }
 
 }

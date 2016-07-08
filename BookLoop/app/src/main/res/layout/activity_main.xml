@@ -27,7 +27,8 @@
             android:layout_weight="1"
             android:button="@null"
             android:gravity="center"
-            android:text="淘一淘"/>
+            android:text="淘一淘"
+            android:textSize="12sp"/>
 
         <RadioButton
             android:id="@+id/button_pub"
@@ -36,7 +37,8 @@
             android:layout_weight="1"
             android:button="@null"
             android:gravity="center"
-            android:text="我要卖"/>
+            android:text="我要卖"
+            android:textSize="12sp"/>
 
         <RadioButton
             android:id="@+id/button_message"
@@ -45,7 +47,8 @@
             android:layout_weight="1"
             android:button="@null"
             android:gravity="center"
-            android:text="留言板"/>
+            android:text="留言板"
+            android:textSize="12sp"/>
 
         <RadioButton
             android:id="@+id/button_my"
@@ -54,6 +57,7 @@
             android:layout_weight="1"
             android:button="@null"
             android:gravity="center"
-            android:text="我自己"/>
+            android:text="我自己"
+            android:textSize="12sp"/>
     </RadioGroup>
 </LinearLayout>

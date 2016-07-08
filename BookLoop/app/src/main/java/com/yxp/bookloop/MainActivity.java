@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 public class MainActivity extends Activity implements RadioGroup.OnCheckedChangeListener {
 
@@ -31,13 +32,14 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        isLogin();
+//        isLogin();
 
         //设置按钮按下去之后和之前的背景
-        press = ContextCompat.getDrawable(this, R.drawable.img_press);
-        press.setBounds(0, 0, 100, 100);
         unpress = ContextCompat.getDrawable(this, R.drawable.img_unpress);
-        unpress.setBounds(0, 0, 100, 100);
+        unpress.setBounds(0, 0, 70, 70);
+        press = ContextCompat.getDrawable(this, R.drawable.img_press);
+        press.setBounds(0, 0, 70, 70);
+
 
         button_onSale = (RadioButton) findViewById(R.id.button_onSale);
         button_pub = (RadioButton) findViewById(R.id.button_pub);
@@ -54,6 +56,7 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
         bottomMenu.setOnCheckedChangeListener(this);
     }
 
+    //默认显示“淘一淘”里面的内容
     private void setDefaultContent() {
         OnSaleFragment onSaleFragment = new OnSaleFragment();
         FragmentManager onSaleFragmentManager = getFragmentManager();
@@ -62,7 +65,7 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
         onSaleFragmentBeginTraction.commit();
     }
 
-    //给每个按钮添加初始化图片
+    //给每个按钮添加未被按下去的图片
     private void setMenuButtonUnpressStatus(Drawable img, String RGB) {
         button_onSale.setCompoundDrawables(null, img, null, null);
         button_onSale.setTextColor(Color.parseColor(RGB));
@@ -88,12 +91,14 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
 
             //点击“我要卖”
             case R.id.button_pub:
-                setMenuButtonUnpressStatus(unpress, "#555555");
-//                button_pub.setCompoundDrawables(null, press, null, null);
-//                button_pub.setTextColor(Color.parseColor("#3fca3a"));
-                Intent intent = new Intent(MainActivity.this, PublishActivity.class);
-                startActivity(intent);
-                finish();
+                if (!isLogin()) {
+                    Toast.makeText(MainActivity.this, "你需要登录才能进行此操作！", Toast.LENGTH_SHORT).show();
+                } else {
+                    setMenuButtonUnpressStatus(unpress, "#555555");
+                    Intent intent = new Intent(MainActivity.this, PublishActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
                 break;
 
             //点击“留言板”
