@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -59,7 +60,7 @@ public class OnSaleFragment extends Fragment implements AdapterView.OnItemClickL
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.print("错误");
+                Toast.makeText(getActivity(), "当前网络不可用", Toast.LENGTH_SHORT).show();
             }
         });
         requestQueue.add(jsonObjectRequest);
@@ -81,7 +82,7 @@ public class OnSaleFragment extends Fragment implements AdapterView.OnItemClickL
                 book.author = bookJsonObject.getString("author");
                 book.publish = bookJsonObject.getString("publish");
                 book.price = bookJsonObject.getString("price");
-                book.msgTime = bookJsonObject.getString("pub_time");
+                book.pubTime = bookJsonObject.getString("pub_time");
                 bookList.add(book);
             }
             return bookList;
@@ -91,8 +92,9 @@ public class OnSaleFragment extends Fragment implements AdapterView.OnItemClickL
         return null;
     }
 
+    //设置点击事件
     @Override
-    public void onItemClick(AdapterView<?> parent, final View view, final int position, long id) {
+    public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("请选择联系方式");
         builder.setItems(option, new DialogInterface.OnClickListener() {
@@ -103,7 +105,8 @@ public class OnSaleFragment extends Fragment implements AdapterView.OnItemClickL
                     intent = new Intent(Intent.ACTION_CALL);
                     intent.setData(Uri.parse("tel:13006336086"));
                 } else {
-                    RelativeLayout layout = (RelativeLayout) mListView.getChildAt(position);
+                    int first = mListView.getFirstVisiblePosition();
+                    RelativeLayout layout = (RelativeLayout) mListView.getChildAt(position-first);
                     TextView tv = (TextView) layout.findViewById(R.id.tv_bookName);
                     String bookName = tv.getText().toString();
                     String body = "童鞋你好，我在“书环”这款APP上面看到你出售《" + bookName + "》，请问这本书还有吗？";
@@ -116,4 +119,5 @@ public class OnSaleFragment extends Fragment implements AdapterView.OnItemClickL
         });
         builder.show();
     }
+
 }

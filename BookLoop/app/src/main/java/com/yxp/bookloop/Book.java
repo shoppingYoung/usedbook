@@ -9,5 +9,5 @@ class Book {
     public String author;
     public String publish;
     public String price;
-    public String msgTime;
+    public String pubTime;
 }

@@ -57,7 +57,7 @@ public class BookAdapter extends BaseAdapter {
             viewHolder.tv_author = (TextView) convertView.findViewById(R.id.tv_author);
             viewHolder.tv_publish = (TextView) convertView.findViewById(R.id.tv_publish);
             viewHolder.tv_price = (TextView) convertView.findViewById(R.id.tv_price);
-            viewHolder.tv_time = (TextView) convertView.findViewById(R.id.date);
+            viewHolder.tv_time = (TextView) convertView.findViewById(R.id.tv_time);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -73,7 +73,7 @@ public class BookAdapter extends BaseAdapter {
         viewHolder.tv_author.setText(mList.get(position).author);
         viewHolder.tv_publish.setText(mList.get(position).publish);
         viewHolder.tv_price.setText(mList.get(position).price);
-//        viewHolder.tv_time.setText(mList.get(position).msgTime);
+        viewHolder.tv_time.setText(mList.get(position).pubTime);
         return convertView;
     }
 
