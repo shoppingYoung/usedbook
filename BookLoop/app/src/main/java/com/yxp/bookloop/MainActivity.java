@@ -21,10 +21,6 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
     private RadioButton button_onSale, button_pub, button_message, button_my;
     private List<Drawable> unpress = new ArrayList<>();
     private List<Drawable> press = new ArrayList<>();
-//    Drawable unpress = null;
-//    Drawable press = null;
-
-    public static String USER = LoginActivity.userId.equals("") ? RegisterActivity.userId : LoginActivity.userId;
 
     public static boolean isLogin() {
         if (LoginActivity.userId.equals("") && RegisterActivity.userId.equals("")) {
@@ -54,7 +50,7 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
         bottomMenu.setOnCheckedChangeListener(this);
     }
 
-//添加“未点击”图片
+    //添加“未点击”图片
     private void initUnpress() {
         Drawable buttonOnSaleUnpress = ContextCompat.getDrawable(this, R.drawable.onsale_unpress);
         buttonOnSaleUnpress.setBounds(0, 0, 70, 70);

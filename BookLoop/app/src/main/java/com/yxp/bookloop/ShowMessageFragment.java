@@ -51,7 +51,6 @@ public class ShowMessageFragment extends Fragment {
                 //判断用户是否登录
                 if (MainActivity.isLogin()) {
                     Intent intent = new Intent(getActivity(), AddMessageActivity.class);
-                    intent.putExtra("user", MainActivity.USER);
                     startActivity(intent);
                 } else {
                     Toast.makeText(getActivity(), "游客不能留言！", Toast.LENGTH_SHORT).show();
