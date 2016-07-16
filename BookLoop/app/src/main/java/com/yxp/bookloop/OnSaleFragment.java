@@ -96,7 +96,7 @@ public class OnSaleFragment extends Fragment implements AdapterView.OnItemClickL
     @Override
     public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
         if (!MainActivity.isLogin()) {
-            Toast.makeText(getActivity(), "你需要登录才能进行此操作！", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "你需要登录才能与卖家联系！", Toast.LENGTH_SHORT).show();
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle("请选择联系方式");

@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.yxp.bookloop.Utils.YxpUtils;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -65,33 +67,40 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
             //点击“发送验证码”
             case R.id.sendMsg:
                 //如果手机号码是有效的，则发送短信验证码
-                if (clickVerify(getUserName)){
-                    sendMsg.setEnabled(false);
-                    userName.setEnabled(false);
-                    sendMsg.setText("验证码已发送");
-                    sendMsg.setTextSize(16);
-                    new AsyncTask<String, Void, String>() {
-                        @Override
-                        protected String doInBackground(String... params) {
-                            return getMessageStatusCode(params[0],params[1]);
-                        }
+                if (clickVerify(getUserName)) {
+                    if (!YxpUtils.isNetworkAvailable(getApplicationContext())) {
+                        Toast.makeText(this, "当前网络不可用!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        sendMsg.setEnabled(false);
+                        userName.setEnabled(false);
+                        sendMsg.setText("验证码已发送");
+                        sendMsg.setTextSize(16);
+                        new AsyncTask<String, Void, String>() {
+                            @Override
+                            protected String doInBackground(String... params) {
+                                return getMessageStatusCode(params[0], params[1]);
+                            }
 
-                        @Override
-                        protected void onPostExecute(String s) {
-                            super.onPostExecute(s);
-                            HandleMsgForVerify(s);
-                        }
-                    }.execute(GET_VERIFY_CODE,getUserName);
+                            @Override
+                            protected void onPostExecute(String s) {
+                                super.onPostExecute(s);
+                                HandleMsgForVerify(s);
+                            }
+                        }.execute(GET_VERIFY_CODE, getUserName);
+                    }
                 }
-            break;
+                break;
 
             //点击“注册”按钮
             case R.id.registerComplete:
                 if (clickRegister(getUserName, getVerify, getPassword)) {
+                    if (!YxpUtils.isNetworkAvailable(getApplicationContext())) {
+                        Toast.makeText(this, "当前网络不可用!", Toast.LENGTH_SHORT).show();
+                    }
                     new AsyncTask<String, Void, String>() {
                         @Override
                         protected String doInBackground(String... params) {
-                            return getDataFromWeb(params[0], params[1], params[2],params[3]);
+                            return getDataFromWeb(params[0], params[1], params[2], params[3]);
                         }
 
                         @Override
@@ -99,9 +108,9 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
                             super.onPostExecute(s);
                             HandleMsgForReg(getUserName, s);
                         }
-                    }.execute(REG_URL, getUserName, getVerify,getPassword);
+                    }.execute(REG_URL, getUserName, getVerify, getPassword);
                 }
-            break;
+                break;
             default:
         }
     }
@@ -136,10 +145,10 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
     }
 
     //请求发送验证码
-    private String getMessageStatusCode(String url,String phone) {
+    private String getMessageStatusCode(String url, String phone) {
         String userName = "userName";
         String a = "";
-        String result = sendDataByPost(url, userName, phone,a,a,a,a);
+        String result = sendDataByPost(url, userName, phone, a, a, a, a);
         return result;
     }
 

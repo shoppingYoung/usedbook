@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.yxp.bookloop.Utils.YxpUtils;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -89,22 +91,26 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             Toast.makeText(getApplicationContext(), "您还没有输入密码！",
                     Toast.LENGTH_SHORT).show();
         } else {
-            final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
-            progressDialog.setMessage("正在登录。。。");
-            progressDialog.show();
-            //将用户填写的信息上传到服务器
-            new AsyncTask<String, Void, String>() {
-                @Override
-                protected String doInBackground(String... params) {
-                    return getDataFromWeb(params[0], params[1], params[2]);
-                }
+            if (!YxpUtils.isNetworkAvailable(getApplicationContext())) {
+                Toast.makeText(this, "当前网络不可用！", Toast.LENGTH_SHORT).show();
+            }else {
+                final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
+                progressDialog.setMessage("正在登录。。。");
+                progressDialog.show();
+                //将用户填写的信息上传到服务器
+                new AsyncTask<String, Void, String>() {
+                    @Override
+                    protected String doInBackground(String... params) {
+                        return getDataFromWeb(params[0], params[1], params[2]);
+                    }
 
-                @Override
-                protected void onPostExecute(String s) {
-                    super.onPostExecute(s);
-                    HandleMsgForLogin(getUserName, progressDialog, s);
-                }
-            }.execute(LOGIN_URL, getUserName, getPassword);
+                    @Override
+                    protected void onPostExecute(String s) {
+                        super.onPostExecute(s);
+                        HandleMsgForLogin(getUserName, progressDialog, s);
+                    }
+                }.execute(LOGIN_URL, getUserName, getPassword);
+            }
         }
     }
 

@@ -18,7 +18,8 @@
         android:layout_height="wrap_content"
         android:background="#52aba616"
         android:orientation="horizontal"
-        android:paddingBottom="5dp">
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp">
 
         <RadioButton
             android:id="@+id/button_onSale"

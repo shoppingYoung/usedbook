@@ -12,6 +12,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.yxp.bookloop.Utils.YxpUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,13 +55,13 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
     //添加“未点击”图片
     private void initUnpress() {
         Drawable buttonOnSaleUnpress = ContextCompat.getDrawable(this, R.drawable.onsale_unpress);
-        buttonOnSaleUnpress.setBounds(0, 0, 70, 70);
+        buttonOnSaleUnpress.setBounds(0, 0, 60, 60);
         Drawable buttonPubUnpress = ContextCompat.getDrawable(this, R.drawable.onpub_unpress);
-        buttonPubUnpress.setBounds(0, 0, 70, 70);
+        buttonPubUnpress.setBounds(0, 0, 60, 60);
         Drawable buttonMessageUnpress = ContextCompat.getDrawable(this, R.drawable.onmessage_unpress);
-        buttonMessageUnpress.setBounds(0, 0, 70, 70);
+        buttonMessageUnpress.setBounds(0, 0, 60, 60);
         Drawable buttonMyUnpress = ContextCompat.getDrawable(this, R.drawable.onmy_unpress);
-        buttonMyUnpress.setBounds(0, 0, 70, 70);
+        buttonMyUnpress.setBounds(0, 0, 60, 60);
         unpress.add(buttonOnSaleUnpress);
         unpress.add(buttonPubUnpress);
         unpress.add(buttonMessageUnpress);
@@ -69,13 +71,13 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
     //添加“点击”图片
     private void initPress() {
         Drawable buttonOnSalePress = ContextCompat.getDrawable(this, R.drawable.onsale_press);
-        buttonOnSalePress.setBounds(0, 0, 70, 70);
+        buttonOnSalePress.setBounds(0, 0, 60, 60);
         Drawable buttonPubPress = ContextCompat.getDrawable(this, R.drawable.onpub_press);
-        buttonPubPress.setBounds(0, 0, 70, 70);
+        buttonPubPress.setBounds(0, 0, 60, 60);
         Drawable buttonMessagePress = ContextCompat.getDrawable(this, R.drawable.onmessage_press);
-        buttonMessagePress.setBounds(0, 0, 70, 70);
+        buttonMessagePress.setBounds(0, 0, 60, 60);
         Drawable buttonMyPress = ContextCompat.getDrawable(this, R.drawable.onmy_press);
-        buttonMyPress.setBounds(0, 0, 70, 70);
+        buttonMyPress.setBounds(0, 0, 60, 60);
         press.add(buttonOnSalePress);
         press.add(buttonPubPress);
         press.add(buttonMessagePress);
@@ -137,11 +139,16 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
                 button_message.setCompoundDrawables(null, press.get(2), null, null);
                 button_message.setTextColor(Color.parseColor("#3fca3a"));
 
-                ShowMessageFragment showMessageFragment = new ShowMessageFragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction showMessageFragmentBeginTraction = fragmentManager.beginTransaction();
-                showMessageFragmentBeginTraction.replace(R.id.content_layout, showMessageFragment);
-                showMessageFragmentBeginTraction.commit();
+                if (YxpUtils.isNetworkAvailable(getApplicationContext())) {
+
+                    ShowMessageFragment showMessageFragment = new ShowMessageFragment();
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction showMessageFragmentBeginTraction = fragmentManager.beginTransaction();
+                    showMessageFragmentBeginTraction.replace(R.id.content_layout, showMessageFragment);
+                    showMessageFragmentBeginTraction.commit();
+                } else {
+                    Toast.makeText(this, "当前网络不可用！", Toast.LENGTH_SHORT).show();
+                }
                 break;
 
             //点击“我自己”
