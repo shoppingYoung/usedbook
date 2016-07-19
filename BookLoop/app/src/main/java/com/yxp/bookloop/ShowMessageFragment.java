@@ -53,7 +53,7 @@ public class ShowMessageFragment extends Fragment {
                     Intent intent = new Intent(getActivity(), AddMessageActivity.class);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(getActivity(), "游客不能留言！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "游客不能留言，请先登录！", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -103,15 +103,15 @@ public class ShowMessageFragment extends Fragment {
     //获取服务器返回的内容
     private String readStream(InputStream is) {
         InputStreamReader isr;
-        String result = "";
+        StringBuffer sb = new StringBuffer();
         try {
             isr = new InputStreamReader(is, "UTF-8");
             String str;
             BufferedReader br = new BufferedReader(isr);
             while ((str = br.readLine()) != null) {
-                result = result + str;
+                sb.append(str);
             }
-            return result;
+            return sb.toString();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (IOException e) {
